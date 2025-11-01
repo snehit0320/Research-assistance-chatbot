@@ -1,6 +1,5 @@
-!pip install requests chromadb sentence-transformers pymupdf gradio arxiv python-docx reportlab matplotlib plotly pandas networkx --quiet
-
 import os, re, json, requests, fitz, time
+from dotenv import load_dotenv
 import chromadb
 from chromadb.config import Settings
 from chromadb.utils import embedding_functions
@@ -17,17 +16,26 @@ import plotly.graph_objects as go
 from collections import Counter
 import networkx as nx
 
-# ------------------------------
-# API Keys
-# ------------------------------
-OPENROUTER_API_KEY = "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"
-RAPIDAPI_KEY = "537491845dmshb7f7f9ad7e79d29p1ce47bjsn1d8fcd968154"
+# Load environment variables from .env file
+load_dotenv()
 
-# API Hosts
-AI_DETECTION_HOST = "ai-detection4.p.rapidapi.com"
-PLAGIARISM_HOST = "plagiarism-checker-and-auto-citation-generator-multi-lingual.p.rapidapi.com"
-HUMANIZE_HOST = "humanize-ai-content-paraphrasing-api.p.rapidapi.com"
-TEXTGEARS_HOST = "textgears-textgears-v1.p.rapidapi.com"
+# ------------------------------
+# API Keys (loaded from environment variables)
+# ------------------------------
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
+RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY", "")
+
+# Validate API keys are set
+if not OPENROUTER_API_KEY or not RAPIDAPI_KEY:
+    print("⚠️ WARNING: API keys not found in environment variables!")
+    print("Please create a .env file with your API keys. See env.example for reference.")
+    raise ValueError("API keys must be set in environment variables. Create a .env file based on env.example")
+
+# API Hosts (can be overridden via environment variables)
+AI_DETECTION_HOST = os.getenv("AI_DETECTION_HOST", "ai-detection4.p.rapidapi.com")
+PLAGIARISM_HOST = os.getenv("PLAGIARISM_HOST", "plagiarism-checker-and-auto-citation-generator-multi-lingual.p.rapidapi.com")
+HUMANIZE_HOST = os.getenv("HUMANIZE_HOST", "humanize-ai-content-paraphrasing-api.p.rapidapi.com")
+TEXTGEARS_HOST = os.getenv("TEXTGEARS_HOST", "textgears-textgears-v1.p.rapidapi.com")
 
 # ------------------------------
 # Session Storage

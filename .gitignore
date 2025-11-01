@@ -1,12 +1,21 @@
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# API Keys and sensitive files
+*_keys.txt
+*_secrets.txt
+config.ini
+secrets.json
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-env/
-venv/
-ENV/
 build/
 develop-eggs/
 dist/
@@ -23,11 +32,11 @@ wheels/
 .installed.cfg
 *.egg
 
-# Generated files
-generated_papers/
-chromadb_session/
-*.pdf
-*.docx
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
 
 # IDE
 .vscode/
@@ -36,14 +45,18 @@ chromadb_session/
 *.swo
 *~
 
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Generated files
+generated_papers/
+chromadb_session/
+
 # OS
 .DS_Store
 Thumbs.db
 
-# Environment variables
-.env
-.env.local
-
-# Gradio
-flagged/
+# Logs
+*.log
 
